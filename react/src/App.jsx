@@ -9,20 +9,26 @@ import {
 } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReusableCard from './assets/Carddd';
+import ResponsiveTable from './assets/ResponsiveTable';
 
 
 function App() {
+
+  const [rows, setRows] = useState([])
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const url = 'https://jsonplaceholder.typicode.com/todos';
     fetch(url)
       .then(response => response.json())
       .then(data => {
-          // Process the data
-        console.log(data);
+        setRows(data);
+        setLoading(false);
+        // console.log("rows: ", data);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
+        setLoading(false);
       });
     }, []);
 
@@ -99,28 +105,16 @@ function App() {
       {/* Responsive Table Example */}
       <div className="mt-5">
         <Container>
-          <div className="table-responsive">
-            <table className="table table-bordered">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  {Array.from({ length: 12 }).map((_, index) => (
-                    <th key={index}>Table heading {index + 1}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {Array.from({ length: 3 }).map((_, rowIndex) => (
-                  <tr key={rowIndex}>
-                    <td>{rowIndex + 1}</td>
-                    {Array.from({ length: 12 }).map((_, cellIndex) => (
-                      <td key={cellIndex}>Table cell {cellIndex + 1}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <h2 className="mb-4">Responsive Table Example</h2>
+          <p>This table is responsive and will adjust to different screen sizes.</p>
+          {loading ? (
+            <p>Loading...</p>
+          ) : (
+            <ResponsiveTable 
+              rows={rows}
+              className="table table-striped table-bordered"
+            />
+           )}
         </Container>
       </div>
     </div>

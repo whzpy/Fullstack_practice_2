@@ -1,35 +1,25 @@
 import Table from 'react-bootstrap/Table';
 
-const ResponsiveTable = () => {
+const ResponsiveTable = ({ rows }) => {
   return (
     <Table responsive>
       <thead>
         <tr>
-          <th>#</th>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <th key={index}>Table heading</th>
-          ))}
+          <th>ID</th>
+          <th>userID</th>
+          <th>Title</th>
+          <th>Completed</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>Table cell {index}</td>
-          ))}
-        </tr>
-        <tr>
-          <td>2</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>Table cell {index}</td>
-          ))}
-        </tr>
-        <tr>
-          <td>3</td>
-          {Array.from({ length: 12 }).map((_, index) => (
-            <td key={index}>Table cell {index}</td>
-          ))}
-        </tr>
+        {rows.map((row, index) => (
+          <tr key={index}>
+            <td>{row.id}</td>
+            <td>{row.userId}</td>
+            <td>{row.title} + {row.title} + {row.title}</td>
+            <td>{row.completed ? 'Yes' : 'No'}</td>
+          </tr>
+        ))}
       </tbody>
     </Table>
   );
